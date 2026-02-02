@@ -2,6 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Brain, Heart, Activity, ShieldCheck, Sparkles, Quote, Fingerprint, Microscope, Users } from 'lucide-react';
 
+import heroNeuroscience from '../src/assets/images/hero-neuroscience.png';
+import heroClinical from '../src/assets/images/hero-clinical.jpg';
+import heroInterior from '../src/assets/images/hero-interior.jpg';
+import aboutClinicMain from '../src/assets/images/about-clinic-main.jpg';
+import aboutClinicDetail from '../src/assets/images/about-clinic-detail.jpg';
+import servicePsychiatry from '../src/assets/images/service-psychiatry.jpg';
+import servicePsychology from '../src/assets/images/service-psychology.png';
+import programAngustia from '../src/assets/images/program-angustia.png';
+import programCulpa from '../src/assets/images/program-culpa.png';
+import programIrritabilidad from '../src/assets/images/program-irritabilidad.jpg';
+
 const slides = [
   {
     id: 1,
@@ -11,7 +22,7 @@ const slides = [
       </>
     ),
     subtitle: "Un espacio donde la evidencia clínica se encuentra con la calidez humana. Psiquiatría de precisión y psicología del vínculo.",
-    image: "https://images.unsplash.com/photo-1518155317743-a8ff43ea6a5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Calm abstract/nature
+    image: heroNeuroscience,
     overlayColor: "from-white/90 via-white/70 to-brand-sand/50"
   },
   {
@@ -22,7 +33,7 @@ const slides = [
       </>
     ),
     subtitle: "Integramos los últimos avances en neurobiología con terapias de tercera generación para resultados sostenibles.",
-    image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Clean clinical/architectural
+    image: heroClinical,
     overlayColor: "from-white/95 via-white/80 to-cyan-50/50"
   },
   {
@@ -33,7 +44,7 @@ const slides = [
       </>
     ),
     subtitle: "Más que una clínica, somos un ecosistema de transformación diseñado para devolverte tu soberanía emocional.",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80", // Warm interior
+    image: heroInterior,
     overlayColor: "from-brand-sand/90 via-white/80 to-white/60"
   }
 ];
@@ -159,14 +170,14 @@ const Home: React.FC = () => {
                   <div className="relative">
                      <div className="aspect-[4/5] rounded-sm overflow-hidden shadow-luxury">
                         <img 
-                           src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                           src={aboutClinicMain}
                            alt="Consulta Clínica Equilibrar" 
                            className="w-full h-full object-cover"
                         />
                      </div>
                      <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-white p-4 shadow-luxury hidden md:block">
                         <img 
-                           src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                           src={aboutClinicDetail}
                            alt="Detalle" 
                            className="w-full h-full object-cover"
                         />
@@ -191,7 +202,7 @@ const Home: React.FC = () => {
             <Link to="/psiquiatria" className="group block animate-fade-in-down" style={{ animationDelay: '0.2s' }}>
               <div className="relative aspect-[4/3] md:h-[400px] bg-brand-sand mb-6 md:mb-8 overflow-hidden rounded-sm shadow-luxury">
                 <img 
-                   src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                   src={servicePsychiatry}
                    alt="Psiquiatría"
                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-90"
                    loading="lazy"
@@ -213,7 +224,7 @@ const Home: React.FC = () => {
             <Link to="/psicologia" className="group block md:mt-24 animate-fade-in-down" style={{ animationDelay: '0.4s' }}>
               <div className="relative aspect-[4/3] md:h-[400px] bg-brand-sand mb-6 md:mb-8 overflow-hidden rounded-sm shadow-luxury">
                  <img 
-                   src="https://images.unsplash.com/photo-1579126030957-bfda3d1d1f08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                   src={servicePsychology}
                    alt="Psicología"
                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-90"
                    loading="lazy"
@@ -252,7 +263,7 @@ const Home: React.FC = () => {
               <div className="order-1 lg:order-1">
                  <div className="relative aspect-square md:aspect-square overflow-hidden rounded-sm shadow-luxury group border-4 border-white">
                     <img 
-                      src="https://images.unsplash.com/photo-1505299344687-1481a143b35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      src={programAngustia}
                       alt="Programa Angustia"
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                       loading="lazy"
@@ -295,7 +306,7 @@ const Home: React.FC = () => {
               <div className="order-1 lg:order-2">
                  <div className="relative aspect-square md:aspect-square overflow-hidden rounded-sm shadow-luxury group border-4 border-white">
                     <img 
-                      src="https://images.unsplash.com/photo-1501170668045-88f28f8047da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      src={programCulpa}
                       alt="Programa Culpa"
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                       loading="lazy"
@@ -312,7 +323,7 @@ const Home: React.FC = () => {
               <div className="order-1 lg:order-1">
                  <div className="relative aspect-square md:aspect-square overflow-hidden rounded-sm shadow-luxury group border-4 border-white">
                     <img 
-                      src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      src={programIrritabilidad}
                       alt="Programa Irritabilidad"
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                       loading="lazy"

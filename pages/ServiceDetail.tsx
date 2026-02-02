@@ -11,43 +11,43 @@ interface ServiceDetailProps {
   ctaMessage: string;
 }
 
-const ServiceDetail: React.FC<ServiceDetailProps> = ({ 
-  title, 
-  subtitle, 
-  description, 
-  points, 
+const ServiceDetail: React.FC<ServiceDetailProps> = ({
+  title,
+  subtitle,
+  description,
+  points,
   imageSrc,
   ctaText,
   ctaMessage
 }) => {
-  
+
   const handleBooking = () => {
-    window.open(`https://wa.me/56912345678?text=${encodeURIComponent(ctaMessage)}`, '_blank');
+    window.open(`https://wa.me/56930179724?text=${encodeURIComponent(ctaMessage)}`, '_blank');
   };
 
   return (
     <div className="animate-fade-in bg-white min-h-screen">
-      
+
       {/* Editorial Header */}
       <div className="relative pt-24 pb-16 md:pt-32 md:pb-32 bg-brand-sand/50">
-         <div className="max-w-4xl mx-auto px-6 text-center">
-            <span className="block text-brand-primary text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-4 md:mb-6 animate-fade-in-down">Especialidad Clínica</span>
-            <h1 className="text-3xl md:text-6xl font-serif text-brand-heading mb-4 md:mb-6 leading-tight animate-fade-in-down" style={{ animationDelay: '0.1s' }}>{title}</h1>
-            <p className="text-lg md:text-2xl text-slate-500 font-light italic font-serif px-2 animate-fade-in-down" style={{ animationDelay: '0.2s' }}>
-              {subtitle}
-            </p>
-         </div>
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <span className="block text-brand-primary text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-4 md:mb-6 animate-fade-in-down">Especialidad Clínica</span>
+          <h1 className="text-3xl md:text-6xl font-serif text-brand-heading mb-4 md:mb-6 leading-tight animate-fade-in-down" style={{ animationDelay: '0.1s' }}>{title}</h1>
+          <p className="text-lg md:text-2xl text-slate-500 font-light italic font-serif px-2 animate-fade-in-down" style={{ animationDelay: '0.2s' }}>
+            {subtitle}
+          </p>
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 -mt-8 md:-mt-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 bg-white shadow-luxury p-6 md:p-12 rounded-sm border-t border-brand-primary/5 md:border-none animate-fade-in-down" style={{ animationDelay: '0.4s' }}>
-          
+
           {/* Image */}
           <div className="lg:col-span-5">
-             <div className="aspect-video lg:aspect-[3/4] overflow-hidden rounded-sm relative shadow-md">
-                <img src={imageSrc} alt={title} className="w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-brand-heading/5"></div>
-             </div>
+            <div className="aspect-video lg:aspect-[3/4] overflow-hidden rounded-sm relative shadow-md">
+              <img src={imageSrc} alt={title} className="w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-brand-heading/5"></div>
+            </div>
           </div>
 
           {/* Content */}
@@ -63,7 +63,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                 {points.map((point, index) => (
                   <li key={index} className="flex items-start gap-3 md:gap-4 p-3 md:p-4 border border-gray-100 rounded-sm hover:border-brand-primary/30 transition-colors bg-brand-sand/30">
                     <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-brand-light flex items-center justify-center shrink-0 text-brand-primary mt-0.5">
-                       <CheckCircle2 size={14} />
+                      <CheckCircle2 size={14} />
                     </div>
                     <span className="text-slate-600 font-medium text-sm md:text-base">{point}</span>
                   </li>
@@ -72,7 +72,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 border-t border-brand-primary/10 pt-6 md:pt-8">
-              <button 
+              <button
                 onClick={handleBooking}
                 className="w-full sm:w-auto inline-flex justify-center items-center gap-3 bg-brand-primary hover:bg-brand-dark text-white px-8 py-4 rounded-full font-medium transition-all shadow-lg hover:shadow-cyan-200 text-sm md:text-base transform active:scale-95"
               >
@@ -83,12 +83,12 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                 * Coordinación directa con secretaría vía WhatsApp.
               </span>
             </div>
-            
+
           </div>
 
         </div>
       </div>
-      
+
       {/* Spacer */}
       <div className="h-20 md:h-32"></div>
 
