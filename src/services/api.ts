@@ -1,4 +1,5 @@
 import { ApiResponse, Program, Service } from '../../types';
+import { fallbackPrograms, fallbackServices } from '../data/fallback';
 
 const API_URL = 'http://localhost:3001/api';
 
@@ -10,22 +11,24 @@ export const api = {
             const json: ApiResponse<Program[]> = await res.json();
             return json.data;
         } catch (error) {
-            console.error("Error fetching programs:", error);
-            return [];
+            console.warn("Backend offline or request failed. Using fallback data for programs.");
+            return fallbackPrograms;
         }
     },
     getProgramBySlug: async (slug: string): Promise<Program | null> => {
         try {
             const res = await fetch(`${API_URL}/programs/${slug}`);
             if (!res.ok) {
-                if (res.status === 404) return null;
+                if (res.status === 404) return null; // Genuine 404 from server
                 throw new Error('Network response was not ok');
             }
             const json: ApiResponse<Program> = await res.json();
             return json.data;
         } catch (error) {
-            console.error(`Error fetching program ${slug}:`, error);
-            return null;
+            console.warn(`Backend offline or request failed. Using fallback data for program: ${slug}`);
+            const found = fallbackPrograms.find(p => p.slug === slug);
+            console.log('Fallback found:', found); // Debug
+            return found || null;
         }
     },
     getServices: async (): Promise<Service[]> => {
@@ -35,8 +38,8 @@ export const api = {
             const json: ApiResponse<Service[]> = await res.json();
             return json.data;
         } catch (error) {
-            console.error("Error fetching services:", error);
-            return [];
+            console.warn("Backend offline or request failed. Using fallback data for services.");
+            return fallbackServices;
         }
     },
     getServiceBySlug: async (slug: string): Promise<Service | null> => {
@@ -49,8 +52,8 @@ export const api = {
             const json: ApiResponse<Service> = await res.json();
             return json.data;
         } catch (error) {
-            console.error(`Error fetching service ${slug}:`, error);
-            return null;
+            console.warn(`Backend offline or request failed. Using fallback data for service: ${slug}`);
+            return fallbackServices.find(s => s.slug === slug) || null;
         }
     }
 };
