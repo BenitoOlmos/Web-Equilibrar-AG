@@ -26,17 +26,17 @@ const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
 
-          <Route
-            path="/psiquiatria"
-            element={
+        <Route
+          path="/psiquiatria"
+          element={
+            <Layout>
               <ServiceDetail
                 title="Psiquiatría y Diagnóstico"
                 subtitle="Enfoque Transdisciplinario y Neurociencia Afectiva"
-                description="En Equilibrar, la psiquiatría trasciende la prescripción convencional. Concebimos el diagnóstico como un mapa de navegación que integra la medicina oriental y la neurociencia afectiva. Entendemos el síntoma no como un error del sistema, sino como un intento de regulación biológica que debe ser escuchado, comprendido y estabilizado."
+                description="En Equilibrar, la psiquiatría trasciende la prescripción convencional."
                 points={[
                   "Diagnóstico transdisciplinario integral.",
                   "Neurociencia afectiva aplicada a la clínica.",
@@ -47,16 +47,18 @@ const App: React.FC = () => {
                 ctaText="Agendar sesión vía WhatsApp"
                 ctaMessage="Hola, me interesa agendar una hora de Psiquiatría/Diagnóstico."
               />
-            }
-          />
+            </Layout>
+          }
+        />
 
-          <Route
-            path="/psicologia"
-            element={
+        <Route
+          path="/psicologia"
+          element={
+            <Layout>
               <ServiceDetail
                 title="Psicología Clínica"
                 subtitle="Regulación Somática y Vínculo Terapéutico"
-                description="La sanación real ocurre en el contexto de un vínculo seguro. Nuestros procesos terapéuticos priorizan la regulación somática (body-up), permitiendo que el sistema nervioso recupere su capacidad de sentir seguridad. Trabajamos el trauma y los patrones relacionales desde la experiencia sentida, no solo desde la narrativa cognitiva."
+                description="La sanación real ocurre en el contexto de un vínculo seguro."
                 points={[
                   "Terapia centrada en la regulación somática.",
                   "Fortalecimiento del vínculo terapéutico.",
@@ -67,65 +69,111 @@ const App: React.FC = () => {
                 ctaText="Agendar sesión vía WhatsApp"
                 ctaMessage="Hola, quisiera consultar por disponibilidad para Psicología Clínica."
               />
-            }
-          />
+            </Layout>
+          }
+        />
 
-          <Route
-            path="/programa-angustia"
-            element={
+        {/* PROGRAMS - Wrap in Layout to show Menu but HIDE Footer */}
+        <Route
+          path="/programa-angustia"
+          element={
+            <Layout showFooter={false}>
               <ProgramDetail
                 title="Redefinir la Angustia"
+                subtitle="Reprogramación Emocional"
                 price={250000}
                 description="Un proceso clínico para resignificar el miedo a la pérdida y restaurar el vínculo interno."
-                longDescription="La angustia no es enemiga; es una señal de desconexión profunda. Este programa está diseñado para quienes habitan un estado de alerta constante ante la posibilidad de pérdida. A través de un trabajo clínico estructurado, transitaremos desde la parálisis del miedo hacia la restauración de la confianza básica en la vida y en uno mismo."
+                longDescription="La angustia no es enemiga; es una señal de desconexión profunda. Vivir en estado de alerta constante erosiona tu capacidad de confiar. Transita desde la parálisis hacia la seguridad interna."
+                problemTitle="¿El miedo decide por ti?"
+                problemContent={[
+                  "Hipervigilancia constante.",
+                  "Sensación inminente de catástrofe.",
+                  "Incapacidad para habitar el presente."
+                ]}
+                solutionGrid={[
+                  { title: "Neurociencia", desc: "Regulación vagal." },
+                  { title: "Vínculo", desc: "Seguridad interna." },
+                  { title: "Cuerpo", desc: "Habitar la calma." },
+                  { title: "Mente", desc: "Claridad cognitiva." }
+                ]}
                 structure={[
-                  { title: "Semanas 1-2: Desactivar Alerta", desc: "Protocolos de regulación vagal para disminuir la hipervigilancia y estabilizar la fisiología del miedo." },
-                  { title: "Semanas 3-4: Restauración del Vínculo Interno", desc: "Reconstrucción de la seguridad interna y herramientas de afrontamiento ante la incertidumbre." }
+                  { title: "Semanas 1-2", desc: "Desactivar Alerta: Protocolos de seguridad." },
+                  { title: "Semanas 3-4", desc: "Restauración: Construir confianza básica." }
                 ]}
                 duration="4 Semanas"
                 imageSrc={programAngustia}
               />
-            }
-          />
+            </Layout>
+          }
+        />
 
-          <Route
-            path="/programa-culpa"
-            element={
+        <Route
+          path="/programa-culpa"
+          element={
+            <Layout showFooter={false}>
               <ProgramDetail
                 title="Redefinir la Culpa"
+                subtitle="Reprogramación Cognitiva"
                 price={250000}
                 description="Transformar el castigo en responsabilidad soberana y desactivar el autoataque."
-                longDescription="La culpa tóxica es un mecanismo de control interno que drena nuestra vitalidad mediante el autocastigo. Este programa te invita a distinguir entre la culpa neurótica y la responsabilidad ética. Aprenderás a reparar vínculos y errores desde una postura de dignidad (soberanía), desactivando la rumiación mental y el ataque hacia ti mismo."
+                longDescription="La culpa tóxica es un mecanismo de control interno que drena nuestra vitalidad. Aprende a distinguir entre la culpa neurótica y la responsabilidad ética para recuperar tu paz."
+                problemTitle="¿Te castigas por existir?"
+                problemContent={[
+                  "Rumiación mental obsesiva.",
+                  "Sensación de no ser suficiente.",
+                  "Autoexigencia destructiva."
+                ]}
+                solutionGrid={[
+                  { title: "Ética", desc: "Responsabilidad real." },
+                  { title: "Compasión", desc: "Cese del fuego." },
+                  { title: "Dignidad", desc: "Soberanía personal." },
+                  { title: "Acción", desc: "Reparación efectiva." }
+                ]}
                 structure={[
-                  { title: "Semanas 1-2: Culpa vs Responsabilidad", desc: "Diferenciación cognitiva y emocional entre culpa funcional (reparatoria) y desadaptativa (tóxica)." },
-                  { title: "Semanas 3-4: Desactivar el Autoataque", desc: "Prácticas de reparación simbólica y desactivación de la voz crítica interna para recuperar la paz." }
+                  { title: "Semanas 1-2", desc: "Culpa vs Responsabilidad: Distinciones." },
+                  { title: "Semanas 3-4", desc: "Desactivar Autoataque: Paz interna." }
                 ]}
                 duration="4 Semanas"
                 imageSrc={programCulpa}
               />
-            }
-          />
+            </Layout>
+          }
+        />
 
-          <Route
-            path="/programa-irritabilidad"
-            element={
+        <Route
+          path="/programa-irritabilidad"
+          element={
+            <Layout showFooter={false}>
               <ProgramDetail
-                title="Irritabilidad & Amor Propio"
+                title="Redefinir la Irritabilidad"
+                subtitle="Reprogramación Focalizada"
                 price={250000}
-                description="Un proceso focalizado y profundo para resignificar la irritabilidad desde el amor propio y la aceptación de la realidad."
-                longDescription="Cuando la irritabilidad deja de ser una señal de límites vulnerados y se convierte en un estado de agotamiento sistémico, erosiona nuestra vitalidad. Este programa no busca imponer una calma artificial, sino restaurar la coherencia interna a través de la neurociencia de la regulación y la fenomenología de la aceptación. Transformaremos la lucha contra la realidad en una relación de presencia y autocompasión funcional."
-                structure={[
-                  { title: "Semanas 1-2: Descomprimir la Fricción", desc: "Comprender la irritabilidad como respuesta a expectativas rígidas y entregar señales reales de seguridad al sistema nervioso." },
-                  { title: "Semanas 3-4: Reorganizar la Realidad", desc: "Reprogramar el diálogo interno crítico, fortalecer el amor propio y desarrollar una aceptación activa y flexible." }
+                description="Un proceso profundo para resignificar la irritabilidad desde el amor propio."
+                longDescription="La discrepancia entre la realidad y nuestras expectativas genera una fricción sistémica. La irritabilidad mantiene al sistema nervioso en alerta constante, erosionando tu vitalidad."
+                problemTitle="¿Cuándo deja de ser una señal?"
+                problemContent={[
+                  "Tensión corporal acumulada.",
+                  "Erosión de la energía vital.",
+                  "Debilitamiento de vínculos."
                 ]}
-                duration="4 Semanas (Solo 5 cupos)"
+                solutionGrid={[
+                  { title: "Neurociencia", desc: "Calma fisiológica." },
+                  { title: "Presencia", desc: "Habitar sin lucha." },
+                  { title: "Reprogramar", desc: "PNL y juicios." },
+                  { title: "Amor Propio", desc: "Autocompasión." }
+                ]}
+                structure={[
+                  { title: "Semanas 1-2", desc: "Descomprimir: reactividad y seguridad." },
+                  { title: "Semanas 3-4", desc: "Reorganizar: identidad y amor propio." }
+                ]}
+                duration="4 Semanas"
                 imageSrc={programIrritabilidad}
               />
-            }
-          />
+            </Layout>
+          }
+        />
 
-        </Routes>
-      </Layout>
+      </Routes>
     </Router>
   );
 };

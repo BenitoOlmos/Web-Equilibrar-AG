@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, MessageCircle, HeartPulse, Building2 } from 'lucide-react';
 import logo from '../src/assets/images/logo.png';
 
 interface LayoutProps {
   children: React.ReactNode;
+  showFooter?: boolean;
 }
 
 const SplashScreen: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
@@ -39,6 +40,7 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsOpen(false);
@@ -52,7 +54,33 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLinkClick = (e: React.MouseEvent, path: string, hash?: string) => {
+    setIsOpen(false);
+
+    // If it's a hash link to the home page (e.g., #about)
+    if (path === '/' && hash) {
+      e.preventDefault();
+
+      const scrollToElement = () => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      if (location.pathname !== '/') {
+        navigate('/');
+        // Wait for navigation then scroll
+        setTimeout(scrollToElement, 100);
+      } else {
+        // Already on home, just scroll
+        scrollToElement();
+      }
+    }
+  };
+
   const navLinks = [
+    { name: 'Nosotros', path: '/', hash: '#about' },
     { name: 'Psiquiatría', path: '/psiquiatria' },
     { name: 'Psicología', path: '/psicologia' },
     { name: 'Angustia', path: '/programa-angustia' },
@@ -62,16 +90,18 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className={`fixed w-full z-50 transition-all duration-700 ease-in-out ${scrolled || isOpen ? 'bg-white/90 backdrop-blur-xl shadow-luxury py-4' : 'bg-transparent py-8'}`}>
+      {/* Navbar Container: Glass effect on Mobile by default or when scrolled */}
+      <nav className={`fixed w-full z-[60] transition-all duration-700 ease-in-out ${scrolled || isOpen ? 'bg-white/95 backdrop-blur-xl shadow-luxury py-3 md:py-4' : 'bg-white/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none py-4 md:py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center relative h-16 md:h-20">
 
-            {/* Desktop Navigation Left (Services) */}
+            {/* Desktop Navigation Left (General & Services) */}
             <div className="hidden md:flex flex-1 justify-start space-x-6">
-              {navLinks.slice(0, 2).map((link) => (
+              {navLinks.slice(0, 3).map((link) => (
                 <Link
-                  key={link.path}
+                  key={link.name}
                   to={link.path}
+                  onClick={(e) => handleLinkClick(e, link.path, link.hash)}
                   className="text-sm tracking-wide text-brand-text hover:text-brand-primary transition-colors font-medium hover:translate-y-1 transform duration-300"
                 >
                   {link.name}
@@ -82,7 +112,7 @@ const Navbar: React.FC = () => {
             {/* Centered Logo */}
             <div className="flex-shrink-0 flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 z-50">
               <Link to="/" className="flex flex-col items-center group" onClick={() => setIsOpen(false)}>
-                <div className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center mb-1 transition-transform duration-500 group-hover:scale-105">
+                <div className="relative w-20 h-20 md:w-32 md:h-32 flex items-center justify-center mb-1 transition-transform duration-500 group-hover:scale-105">
                   <img src={logo} alt="Equilibrar" className="w-full h-full object-contain drop-shadow-sm" />
                 </div>
               </Link>
@@ -90,10 +120,11 @@ const Navbar: React.FC = () => {
 
             {/* Desktop Navigation Right (Programs) */}
             <div className="hidden md:flex flex-1 justify-end space-x-6">
-              {navLinks.slice(2, 5).map((link) => (
+              {navLinks.slice(3, 6).map((link) => (
                 <Link
-                  key={link.path}
+                  key={link.name}
                   to={link.path}
+                  onClick={(e) => handleLinkClick(e, link.path, link.hash)}
                   className="text-sm tracking-wide text-brand-text hover:text-brand-primary transition-colors font-medium hover:translate-y-1 transform duration-300"
                 >
                   {link.name}
@@ -101,39 +132,53 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden absolute right-0 z-50">
+            {/* Mobile Menu Button - Enhanced for Visibility */}
+            <div className="md:hidden absolute right-0 z-[70] top-1/2 -translate-y-1/2">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-brand-heading p-2 focus:outline-none transition-transform duration-300 active:rotate-90"
+                className={`p-3 rounded-full transition-all duration-300 active:scale-95 shadow-sm ${isOpen ? 'bg-brand-primary text-white rotate-90' : 'bg-white text-brand-heading border border-gray-100'}`}
                 aria-label="Toggle menu"
               >
-                {isOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}
+                {isOpen ? <X size={24} strokeWidth={2} /> : <Menu size={24} strokeWidth={2} />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        <div className={`fixed inset-0 bg-brand-sand/95 backdrop-blur-3xl z-40 transition-all duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] transform ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'} md:hidden pt-40 px-6 overflow-y-auto`}>
-          <div className="flex flex-col space-y-8 items-center text-center">
+        {/* Mobile Menu Overlay - High Contrast */}
+        <div className={`fixed inset-0 bg-white z-[55] transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'} md:hidden flex flex-col pt-32 pb-10 px-6 overflow-y-auto`}>
+          <div className="flex flex-col space-y-6 items-center text-center w-full max-w-sm mx-auto">
+
+            <p className="text-xs font-bold text-gray-300 uppercase tracking-widest mb-4">Menú Principal</p>
+
+            {/* Explicit Home Link for Mobile */}
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="w-full py-4 text-2xl font-serif text-brand-heading border-b border-gray-50 hover:text-brand-primary hover:bg-gray-50 rounded-lg transition-all duration-300"
+            >
+              Inicio
+            </Link>
+
             {navLinks.map((link, idx) => (
               <Link
-                key={link.path}
+                key={link.name}
                 to={link.path}
-                style={{ transitionDelay: `${100 + idx * 50}ms` }}
-                className={`text-3xl font-serif text-brand-heading hover:text-brand-primary transition-all duration-500 transform ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}
+                onClick={(e) => handleLinkClick(e, link.path, link.hash)}
+                style={{ transitionDelay: `${50 + idx * 30}ms` }}
+                className={`w-full py-4 text-2xl font-serif text-brand-heading border-b border-gray-50 hover:text-brand-primary hover:bg-gray-50 rounded-lg transition-all duration-300 transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="pt-12 border-t border-brand-primary/10 w-full max-w-xs space-y-4">
+
+            <div className="pt-8 w-full space-y-4 mt-auto">
               <p className="text-xs text-brand-gold uppercase tracking-widest font-bold">Atención Preferencial</p>
               <button
                 onClick={() => window.open('https://wa.me/56930179724', '_blank')}
-                className="w-full bg-brand-primary text-white py-4 rounded-full font-medium tracking-wide shadow-luxury flex items-center justify-center gap-2 animate-fade-in-down"
+                className="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold tracking-wide shadow-lg flex items-center justify-center gap-3 active:scale-95 transition-transform"
               >
-                <MessageCircle size={18} /> Contactar
+                <MessageCircle size={20} /> WhatsApp
               </button>
             </div>
           </div>
@@ -231,7 +276,7 @@ const FloatingWhatsApp: React.FC = () => {
   )
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps & { showFooter?: boolean }> = ({ children, showFooter = true }) => {
   const [loading, setLoading] = useState(true);
 
   return (
@@ -243,7 +288,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </main>
         <FloatingWhatsApp />
-        <Footer />
+        {showFooter && <Footer />}
       </div>
     </div>
   );
